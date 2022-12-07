@@ -1,0 +1,14 @@
+- hosts: web
+  ignore_errors: true
+  tasks:
+    - win_shell: $(curl http://169.254.169.254/latest/meta-data/instance-id).Content
+      register: my_instanceid
+    - win_shell : $(curl http://169.254.169.254/latest/meta-data/local-ipv4).Content
+      register: my_ipv4
+    - win_shell: $(curl http://169.254.169.254/latest/meta-data/instance-type).Content
+      register: my_instancetype
+    - name: print metadata
+      debug:
+        msg: "{{ my_instanceid }}"
+
+####!bin/bash
